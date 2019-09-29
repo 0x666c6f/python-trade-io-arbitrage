@@ -96,6 +96,25 @@ class TradeIO:
             data = res.json()
             logger.info(data)
         except:
-            logger.error('Error creating order:')
+            logger.error('Error deleting order:')
+            raise
+        return data
+
+    def balance(self):
+        data = ''
+        res=''
+        try:
+            ts = '?ts='+str(int(round(time.time() * 1000)))
+            headers = {
+                'Key': TradeIO.key,
+                'Sign': self.sign(ts).upper(),
+                'Content-Type': 'application/json'
+            }
+
+            res = requests.get(url = TradeIO.endpoint+'/api/v1/account'+ts, headers=headers) 
+            data = res.json()
+            logger.info(data)
+        except:
+            logger.error('Error getting balance:')
             raise
         return data
