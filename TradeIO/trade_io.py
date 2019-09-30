@@ -39,6 +39,7 @@ class TradeIO:
             res = requests.get(url = TradeIO.endpoint+'/api/v1/info') 
             # extracting data in json format 
             data = res.json() 
+            logger.info(data)
         except:
             logger.error(f'Error  retrieving infos: {res}')
         return data
