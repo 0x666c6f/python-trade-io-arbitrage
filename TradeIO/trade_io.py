@@ -13,14 +13,31 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
 
+instance = ''
+
 class TradeIO:
     endpoint = 'https://api.exchange.trade.io'
     key = '8bbcf739-e5f9-46df-8a07-884aeaa9e7d1'
     secret = '100ad32f-5e7b-4a37-8c7f-e1199d1943db'
 
+
+    MAX_BTC = 0
+    MAX_ETH = 0
+    MAX_USDT = 0
+
+    MIN_BTC = 0.001
+    MIN_ETH = 0.01
+    MIN_USDT = 10
+
+    MIN_BONUS = 1.0012
+
+    TOTAL_GLOBAL_WEIGHT = 0
+    TOTAL_ORDER_WEIGHT = 0
+
     def __init__(self):
+        TradeIO.INSTANCE = self
         pass
-    
+
     def sign(self,args):
         data = ''
 
@@ -33,7 +50,7 @@ class TradeIO:
 
     def info(self):
         data = ''
-        res=''
+        res = ''
 
         try:
             res = requests.get(url = TradeIO.endpoint+'/api/v1/info') 
